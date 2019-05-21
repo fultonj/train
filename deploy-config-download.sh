@@ -58,12 +58,13 @@ if [[ $CONF -eq 1 ]]; then
 	echo "tripleo-config-download cmd didn't create $DIR"
         exit 1;
     fi
+
     time ansible-playbook \
 	 -v \
 	 --ssh-extra-args "-o StrictHostKeyChecking=no" --timeout 240 \
 	 --become \
 	 -i $DIR/inventory.yaml \
-	 tripleo-config-download/deploy_steps_playbook.yaml
+	 $DIR/deploy_steps_playbook.yaml
 fi
 # -------------------------------------------------------
 if [[ $CEPH -eq 1 ]]; then
