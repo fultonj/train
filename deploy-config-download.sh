@@ -46,7 +46,8 @@ if [[ $DOWN -eq 1 ]]; then
     else
 	pushd $DIR
 	tripleo-ansible-inventory --static-yaml-inventory inventory.yaml --stack $STACK
-	ansible --ssh-extra-args "-o StrictHostKeyChecking=no" -i inventory.yaml all -m ping
+        cp -a ~/.ssh/id_rsa ssh_private_key
+	ansible --private-key ssh_private_key --ssh-extra-args "-o StrictHostKeyChecking=no" -i inventory.yaml all -m ping
 	popd
 	echo "pushd $DIR"
 	echo 'ansible -i inventory.yaml all -m shell -b -a "hostname"'
