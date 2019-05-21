@@ -2,7 +2,7 @@
 # Filename:                git-init.sh
 # Description:             configures my git env
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2019-05-21 16:56:59 fultonj> 
+# Time-stamp:              <2019-05-21 17:52:22 fultonj> 
 # -------------------------------------------------------
 # Clones the repos that I am interested in.
 # -------------------------------------------------------
@@ -71,13 +71,13 @@ for repo in "${repos[@]}"; do
     fi
 done
 
-#git remote add remove gerrit
-
 # -------------------------------------------------------
 if [[ $1 == 'tht' ]]; then
     ln -v -s ~/tripleo-heat-templates ~/templates
     sudo mv -v /usr/share/tripleo-common/playbooks{,.bak}
     sudo ln -v -s ~/tripleo-common/playbooks /usr/share/tripleo-common/playbooks
     popd
+    echo 'source /home/stack/stackrc' >> ~/.bashrc
+    echo 'alias os=openstack' >> ~/.bashrc    
 fi
 # -------------------------------------------------------
