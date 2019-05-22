@@ -65,6 +65,7 @@ if [[ $CONF -eq 1 ]]; then
 	 --ssh-extra-args "-o StrictHostKeyChecking=no" --timeout 240 \
 	 --become \
 	 -i $DIR/inventory.yaml \
+         --private-key $DIR/ssh_private_key \
 	 $DIR/deploy_steps_playbook.yaml
 fi
 # -------------------------------------------------------
@@ -79,5 +80,6 @@ if [[ $CEPH -eq 1 ]]; then
 	 --ssh-extra-args "-o StrictHostKeyChecking=no" --timeout 240 \
 	 --become \
 	 -i $DIR/inventory.yaml \
+         --private-key $DIR/ssh_private_key \
 	 tripleo-config-download/deploy_steps_playbook.yaml --tags external_deploy_steps
 fi
