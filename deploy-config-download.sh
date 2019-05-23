@@ -59,6 +59,9 @@ if [[ $CONF -eq 1 ]]; then
         exit 1;
     fi
 
+    echo "about to execute the following plays:"
+    ansible-playbook $DIR/deploy_steps_playbook.yaml --list-tasks 
+
     time ansible-playbook \
 	 -v \
 	 --ssh-extra-args "-o StrictHostKeyChecking=no" --timeout 240 \
@@ -67,6 +70,10 @@ if [[ $CONF -eq 1 ]]; then
          --private-key $DIR/ssh_private_key \
 	 $DIR/deploy_steps_playbook.yaml
 
-         #--tags external_deploy_steps
-         # add this tag to just run ceph
+         # Just re-run ceph
+         # --tags external_deploy_steps
+
+         # Pick up after good ceph install (need to test this)
+         # --tags step2,step3,step4,step5,post_deploy_steps,external --skip-tags ceph
+
 fi
