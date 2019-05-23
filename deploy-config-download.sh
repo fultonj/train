@@ -33,10 +33,13 @@ if [[ $HEAT -eq 1 ]]; then
 fi
 # -------------------------------------------------------
 if [[ $DOWN -eq 1 ]]; then
-    if [[ $(openstack stack list | grep $STACK | wc -l) -eq 0 ]]; then
-	echo "No $STACK heat stack. Exiting"
+    STACK_STATUS=$(openstack stack list -c "Stack Name" -c "Stack Status" \
+	-f value | grep $STACK | awk {'print $2'});
+    if [[ $STACK_STATUS != "CREATE_COMPLETE" ]]; then
+	echo "Exiting. Status of $STACK is $STACK_STATUS"
 	exit 1
     fi
+    if [[ -d $DIR ]]; then rm -rf $DIR fi
     openstack overcloud config download \
               --name $STACK \
               --config-dir $DIR
@@ -45,8 +48,14 @@ if [[ $DOWN -eq 1 ]]; then
     else
 	pushd $DIR
 	tripleo-ansible-inventory --static-yaml-inventory inventory.yaml --stack $STACK
+	if [[ ! -e inventory.yaml ]]; then
+	    echo "No inventory. Giving up."
+	    exit 1
+	fi
         cp -a ~/.ssh/id_rsa ssh_private_key
-	ansible --private-key ssh_private_key --ssh-extra-args "-o StrictHostKeyChecking=no" -i inventory.yaml all -m ping
+	ansible --private-key ssh_private_key \
+	    --ssh-extra-args "-o StrictHostKeyChecking=no" \
+	    -i inventory.yaml all -m ping
 	popd
 	echo "pushd $DIR"
 	echo 'ansible -i inventory.yaml all -m shell -b -a "hostname"'
