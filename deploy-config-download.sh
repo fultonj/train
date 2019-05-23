@@ -39,7 +39,7 @@ if [[ $DOWN -eq 1 ]]; then
 	echo "Exiting. Status of $STACK is $STACK_STATUS"
 	exit 1
     fi
-    if [[ -d $DIR ]]; then rm -rf $DIR fi
+    if [[ -d $DIR ]]; then rm -rf $DIR; fi
     openstack overcloud config download \
               --name $STACK \
               --config-dir $DIR
