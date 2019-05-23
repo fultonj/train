@@ -3,7 +3,6 @@
 HEAT=1
 DOWN=1
 CONF=1
-CEPH=0
 
 STACK=overcloud
 DIR=config-download
@@ -67,19 +66,7 @@ if [[ $CONF -eq 1 ]]; then
 	 -i $DIR/inventory.yaml \
          --private-key $DIR/ssh_private_key \
 	 $DIR/deploy_steps_playbook.yaml
-fi
-# -------------------------------------------------------
-if [[ $CEPH -eq 1 ]]; then
-    # Only used if you want to re-run only the ceph portion of deployment
-    if [[ ! -d $DIR ]]; then
-	echo "tripleo-config-download cmd didn't create $DIR"
-        exit 1;
-    fi
-    time ansible-playbook \
-	 -v \
-	 --ssh-extra-args "-o StrictHostKeyChecking=no" --timeout 240 \
-	 --become \
-	 -i $DIR/inventory.yaml \
-         --private-key $DIR/ssh_private_key \
-	 tripleo-config-download/deploy_steps_playbook.yaml --tags external_deploy_steps
+
+         #--tags external_deploy_steps
+         # add this tag to just run ceph
 fi
