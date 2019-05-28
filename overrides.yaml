@@ -25,3 +25,4 @@ parameter_defaults:
       - /dev/sdb
   CephAnsibleExtraConfig:
     ceph_osd_docker_cpu_limit: 1
+    mon_host_v1: { 'enabled': False }
