@@ -2,7 +2,7 @@
 # Filename:                git-init.sh
 # Description:             configures my git env
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2019-05-21 17:52:22 fultonj> 
+# Time-stamp:              <2019-05-28 10:58:22 fultonj> 
 # -------------------------------------------------------
 # Clones the repos that I am interested in.
 # -------------------------------------------------------
@@ -73,9 +73,15 @@ done
 
 # -------------------------------------------------------
 if [[ $1 == 'tht' ]]; then
-    ln -v -s ~/tripleo-heat-templates ~/templates
-    sudo mv -v /usr/share/tripleo-common/playbooks{,.bak}
-    sudo ln -v -s ~/tripleo-common/playbooks /usr/share/tripleo-common/playbooks
+    if [[ ! -e ~/templates ]]; then
+        ln -v -s ~/tripleo-heat-templates ~/templates
+    fi
+    if [[ ! -d /usr/share/tripleo-common/playbooks.bak ]]; then
+        sudo mv -v /usr/share/tripleo-common/playbooks{,.bak}
+    fi
+    if [[ -d ~/tripleo-common/playbooks ]]; then
+        sudo ln -f -v -s ~/tripleo-common/playbooks /usr/share/tripleo-common/playbooks
+    fi
     popd
     echo 'source /home/stack/stackrc' >> ~/.bashrc
     echo 'alias os=openstack' >> ~/.bashrc    
