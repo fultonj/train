@@ -35,7 +35,8 @@ fi
 if [[ $DOWN -eq 1 ]]; then
     STACK_STATUS=$(openstack stack list -c "Stack Name" -c "Stack Status" \
 	-f value | grep $STACK | awk {'print $2'});
-    if [[ $STACK_STATUS != "CREATE_COMPLETE" ]]; then
+    if [[ ! ($STACK_STATUS == "CREATE_COMPLETE" || 
+                 $STACK_STATUS == "UPDATE_COMPLETE") ]]; then
 	echo "Exiting. Status of $STACK is $STACK_STATUS"
 	exit 1
     fi
@@ -69,7 +70,7 @@ if [[ $CONF -eq 1 ]]; then
     fi
 
     echo "about to execute the following plays:"
-    ansible-playbook $DIR/deploy_steps_playbook.yaml --list-tasks 
+    ansible-playbook $DIR/deploy_steps_playbook.yaml --list-tasks
 
     time ansible-playbook \
 	 -v \
