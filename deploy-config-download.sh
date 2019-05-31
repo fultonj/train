@@ -69,8 +69,14 @@ if [[ $CONF -eq 1 ]]; then
         exit 1;
     fi
 
-    echo "about to execute the following plays:"
-    ansible-playbook $DIR/deploy_steps_playbook.yaml --list-tasks
+    #echo "about to execute the following plays:"
+    #ansible-playbook $DIR/deploy_steps_playbook.yaml --list-tasks
+
+    # include library/roles from tripleo-validations and tripleo-common
+    export ANSIBLE_ROLES_PATH="$ANSIBLE_ROLES_PATH:/usr/share/openstack-tripleo-common/playbooks/roles:/usr/share/openstack-tripleo-validations/roles:/usr/share/ansible/roles"
+    export ANSIBLE_LIBRARY="$ANSIBLE_LIBRARY:/usr/share/openstack-tripleo-validations/library:/usr/share/ansible-modules/"
+    export ANSIBLE_LOG_PATH="ansible.log"
+    echo "NEXT: $(date)" >> ansible.log
 
     time ansible-playbook \
 	 -v \
@@ -83,6 +89,9 @@ if [[ $CONF -eq 1 ]]; then
          # Just re-run ceph
          # --tags external_deploy_steps
 
+         # Test validations
+         # --tags opendev-validation-ceph
+    
          # Pick up after good ceph install (need to test this)
          # --tags step2,step3,step4,step5,post_deploy_steps,external --skip-tags ceph
 
