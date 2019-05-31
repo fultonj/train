@@ -2,7 +2,7 @@
 # Filename:                git-init.sh
 # Description:             configures my git env
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2019-05-28 10:58:22 fultonj> 
+# Time-stamp:              <2019-05-31 15:04:11 fultonj> 
 # -------------------------------------------------------
 # Clones the repos that I am interested in.
 # -------------------------------------------------------
@@ -11,6 +11,7 @@ if [[ $1 == 'tht' ]]; then
     declare -a repos=(
         'openstack/tripleo-heat-templates' \
         'openstack/tripleo-common'\
+        'openstack/tripleo-validations'\
 	);
 fi
 # -------------------------------------------------------
@@ -20,7 +21,7 @@ if [[ $# -eq 0 ]]; then
                       # 'openstack/tripleo-heat-templates' \
 		      # 'openstack/tripleo-common'\
                       # 'openstack/tripleo-ansible' \
-                      #'openstack/tripleo-validations' \
+                      # 'openstack/tripleo-validations' \
                       # 'openstack/python-tripleoclient' \	
 		      # 'openstack/puppet-ceph'\
 		      #'openstack/heat'\
@@ -81,6 +82,12 @@ if [[ $1 == 'tht' ]]; then
     fi
     if [[ -d ~/tripleo-common/playbooks ]]; then
         sudo ln -f -v -s ~/tripleo-common/playbooks /usr/share/tripleo-common/playbooks
+    fi
+    if [[ ! -d /usr/share/openstack-tripleo-validations.bak ]]; then
+        sudo mv -v /usr/share/openstack-tripleo-validations{,.bak}
+    fi
+    if [[ -d ~/tripleo-validations ]]; then
+        sudo ln -f -v -s ~/tripleo-validations /usr/share/openstack-tripleo-validations
     fi
     popd
     echo 'source /home/stack/stackrc' >> ~/.bashrc
