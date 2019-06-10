@@ -2,7 +2,7 @@
 # Filename:                git-init.sh
 # Description:             configures my git env
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2019-05-31 15:04:11 fultonj> 
+# Time-stamp:              <2019-06-10 19:31:57 fultonj> 
 # -------------------------------------------------------
 # Clones the repos that I am interested in.
 # -------------------------------------------------------
@@ -12,6 +12,7 @@ if [[ $1 == 'tht' ]]; then
         'openstack/tripleo-heat-templates' \
         'openstack/tripleo-common'\
         'openstack/tripleo-validations'\
+        'openstack/tripleo-ansible'\
 	);
 fi
 # -------------------------------------------------------
