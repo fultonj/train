@@ -2,7 +2,7 @@
 # Filename:                git-init.sh
 # Description:             configures my git env
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2019-06-10 19:31:57 fultonj> 
+# Time-stamp:              <2019-06-24 11:02:15 fultonj> 
 # -------------------------------------------------------
 # Clones the repos that I am interested in.
 # -------------------------------------------------------
@@ -89,6 +89,20 @@ if [[ $1 == 'tht' ]]; then
     fi
     if [[ -d ~/tripleo-validations ]]; then
         sudo ln -f -v -s ~/tripleo-validations /usr/share/openstack-tripleo-validations
+    fi
+    if [[ -d ~/tripleo-ansible ]]; then
+        if [[ ! -d ~/dist ]]; then mkdir ~/dist; fi
+        pushd /usr/share/ansible/
+        # roles
+        sudo mv -v tripleo-roles ~/dist
+        sudo ln -f -v -s ~/tripleo-ansible/tripleo_ansible/roles tripleo-roles
+        # playbooks
+        sudo mv -v tripleo-playbooks ~/dist
+        sudo ln -f -v -s ~/tripleo-ansible/tripleo_ansible/playbooks tripleo-playbooks
+        # plugins
+        sudo mv -v tripleo-plugins ~/dist
+        sudo ln -f -v -s ~/tripleo-ansible/tripleo_ansible/ansible_plugins tripleo-plugins
+        popd
     fi
     popd
     echo 'source /home/stack/stackrc' >> ~/.bashrc
