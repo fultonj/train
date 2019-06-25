@@ -1,0 +1,15 @@
+---
+parameter_defaults:
+  NeutronMechanismDrivers: ovn
+  ContainerImagePrepare:
+  - push_destination: 192.168.24.1:8787
+    set:
+      ceph_namespace: registry.redhat.io/rhceph-beta
+      ceph_image: rhceph-4-rhel8
+      ceph_tag: latest      
+      name_prefix: centos-binary
+      namespace: docker.io/tripleomaster
+      tag: current-tripleo
+  ContainerImageRegistryCredentials: {
+    'registry.redhat.io': {'': ''}
+  }
