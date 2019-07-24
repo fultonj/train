@@ -72,9 +72,14 @@ if [[ $CONF -eq 1 ]]; then
     #echo "about to execute the following plays:"
     #ansible-playbook $DIR/deploy_steps_playbook.yaml --list-tasks
 
-    # include library/roles from tripleo-validations and tripleo-common
-    export ANSIBLE_ROLES_PATH="$ANSIBLE_ROLES_PATH:/usr/share/openstack-tripleo-common/playbooks/roles:/usr/share/openstack-tripleo-validations/roles:/usr/share/ansible/roles"
+    # include library/roles from tripleo-validations, tripleo-common, tripleo-ansible
+    export ANSIBLE_ROLES_PATH="$ANSIBLE_ROLES_PATH:/usr/share/openstack-tripleo-common/playbooks/roles:/usr/share/openstack-tripleo-validations/roles:/usr/share/ansible/roles:/usr/share/ansible/tripleo-roles"
     export ANSIBLE_LIBRARY="$ANSIBLE_LIBRARY:/usr/share/openstack-tripleo-validations/library:/usr/share/ansible-modules/"
+    export DEFAULT_ACTION_PLUGIN_PATH="$DEFAULT_ACTION_PLUGIN_PATH:/usr/share/ansible/tripleo-plugins/action"
+    export DEFAULT_MODULE_PATH="$DEFAULT_MODULE_PATH:/usr/share/ansible/tripleo-plugins/modules"
+    export DEFAULT_CALLBACK_PLUGIN_PATH="$DEFAULT_CALLBACK_PLUGIN_PATH:/usr/share/ansible/tripleo-plugins/callback"
+    export DEFAULT_FILTER_PLUGIN_PATH="$DEFAULT_FILTER_PLUGIN_PATH:/usr/share/ansible/tripleo-plugins/filter"
+    export DEFAULT_MODULE_UTILS_PATH="$DEFAULT_MODULE_UTILS_PATH:/usr/share/ansible/tripleo-plugins/module_utils"
     export ANSIBLE_LOG_PATH="ansible.log"
     echo "NEXT: $(date)" >> ansible.log
 
