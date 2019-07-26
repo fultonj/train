@@ -89,6 +89,11 @@ if [[ $CONF -eq 1 ]]; then
 	 --become \
 	 -i $DIR/inventory.yaml \
          --private-key $DIR/ssh_private_key \
+         -e validate_controllers_icmp=false \
+         -e validate_gateways_icmp=false \
+         -e validate_fqdn=false \
+         -e validate_ntp=false \
+         -e ping_test_ips=false \
 	 $DIR/deploy_steps_playbook.yaml
 
          # Just re-run ceph
