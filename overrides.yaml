@@ -1,9 +1,9 @@
 ---
 parameter_defaults:
   NtpServer: pool.ntp.org
-  ControllerCount: 3
+  ControllerCount: 1
   ComputeCount: 1
-  CephStorageCount: 3
+  CephStorageCount: 1
   OvercloudControlFlavor: baremetal
   OvercloudComputeFlavor: baremetal
   OvercloudCephStorageFlavor: baremetal
