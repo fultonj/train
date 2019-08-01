@@ -10,7 +10,7 @@ parameter_defaults:
   CephAnsiblePlaybookVerbosity: 3
   CephPoolDefaultSize: 3
   CephPoolDefaultPgNum: 32
-  LocalCephAnsibleFetchDirectoryBackup: /home/stack/fetch_dir
+  LocalCephAnsibleFetchDirectoryBackup: /tmp/fetch_dir
   CephAnsibleEnvironmentVariables:
     ANSIBLE_SSH_RETRIES: '6'
     ANSIBLE_HOST_KEY_CHECKING: 'False'
