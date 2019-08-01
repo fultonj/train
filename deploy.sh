@@ -12,6 +12,6 @@ time openstack overcloud deploy \
   -e ~/containers-env-file.yaml \
   -e ~/domain.yaml \
   -e ~/node-placement.yaml \
-  -e ~/overcloud-yml/container-cli.yaml \
+  -e ~/overcloud-0-yml/container-cli.yaml \
   -e ~/train/overrides.yaml \
   --libvirt-type qemu 2>&1 | tee -a ~/install-overcloud.log

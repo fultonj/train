@@ -22,7 +22,7 @@ if [[ $HEAT -eq 1 ]]; then
          -e ~/templates/environments/podman.yaml \
          -e ~/templates/environments/ceph-ansible/ceph-ansible.yaml \
          -e ~/containers-env-file.yaml \
-         -e ~/overcloud-yml/container-cli.yaml \
+         -e ~/overcloud-0-yml/container-cli.yaml \
          -e ~/domain.yaml \
          -e ~/node-placement.yaml \
          -e ~/train/overrides.yaml \
