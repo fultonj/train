@@ -23,8 +23,8 @@ if [[ $HEAT -eq 1 ]]; then
          -e ~/templates/environments/ceph-ansible/ceph-ansible.yaml \
          -e ~/containers-env-file.yaml \
          -e ~/overcloud-yml/container-cli.yaml \
-         -e ~/overcloud-yml/domain.yaml \
-         -e ~/overcloud-yml/node-placement.yaml \
+         -e ~/domain.yaml \
+         -e ~/node-placement.yaml \
          -e ~/train/overrides.yaml \
          --no-config-download \
          --libvirt-type qemu 2>&1 | tee -a ~/install-overcloud.log
