@@ -8,7 +8,7 @@ parameter_defaults:
   OvercloudComputeFlavor: baremetal
   OvercloudCephStorageFlavor: baremetal
   CephAnsiblePlaybookVerbosity: 3
-  CephPoolDefaultSize: 3
+  CephPoolDefaultSize: 1
   CephPoolDefaultPgNum: 32
   LocalCephAnsibleFetchDirectoryBackup: /tmp/fetch_dir
   CephAnsibleEnvironmentVariables:
