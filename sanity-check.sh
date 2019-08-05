@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 OVERALL=1
-MDS=1
-CINDER=0
+MDS=0
+CINDER=1
 GLANCE=1
-NOVA=0
+NOVA=1
 DIR=config-download
 
 function run_on_mon {
@@ -89,4 +89,10 @@ if [ $NOVA -eq 1 ]; then
 
     openstack server create --flavor m1.tiny --image cirros --key-name demokp inst1 --nic net-id=$netid
     openstack server list
+    if [[ $(openstack server list -c Status -f value) == "BUILD" ]]; then
+        echo "Waiting one minute for building server to boot"
+        sleep 60
+        openstack server list
+    fi
 fi
+
