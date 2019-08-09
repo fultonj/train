@@ -21,7 +21,7 @@ if [[ $? -gt 0 ]]; then
 fi
 
 export AZ="edge0"
-#export HOST_AGGREGATE="HA-${AZ}"
+export HOST_AGGREGATE="HA-${AZ}"
 
 export PRIVATE_NETWORK_CIDR=192.168.200.0/24
 if [[ $PUBLIC -eq 1 ]]; then
@@ -39,28 +39,36 @@ if [[ $DISC -eq 1 ]]; then
             "podman exec -ti nova_api nova-manage cell_v2 discover_hosts --verbose"
     openstack compute service list
     echo "Availability Zones"
-    openstack availability zone list
+    nova availability-zone-list
+    echo "Compute availability zones (before any changes)"
+    openstack availability zone list --compute
+
     echo "Compute Hosts"
     openstack host list 
     echo "Hypervisors"
     openstack hypervisor list
     echo "See https://docs.openstack.org/nova/latest/admin/availability-zones.html"
 
-    # ...do more testing on this part...
-    # if ! openstack aggregate show $HOST_AGGREGATE >null 2>&1; then
-    #     echo "Creating a host aggregate for $AZ"
-    #     openstack aggregate create $HOST_AGGREGATE --zone $AZ
-    #     for H in $(openstack hypervisor list -f value -c "Hypervisor Hostname"); do
-    #         echo "Adding $H to $HOST_AGGREGATE"
-    #         openstack aggregate add host $HOST_AGGREGATE $H
-    #     done
-    # else
-    #     echo "Host Aggregate: $HOST_AGGREGATE"
-    #     openstack aggregate show $HOST_AGGREGATE
-    # fi
+    if ! openstack aggregate show $HOST_AGGREGATE >null 2>&1; then
+        echo "Creating a host aggregate for $AZ"
+        openstack aggregate create $HOST_AGGREGATE --zone $AZ
+        for H in $(openstack hypervisor list -f value -c "Hypervisor Hostname"); do
+            echo "Adding $H to $HOST_AGGREGATE"
+            openstack aggregate add host $HOST_AGGREGATE $H
+        done
+    else
+        echo "Host Aggregate: $HOST_AGGREGATE"
+        openstack aggregate show $HOST_AGGREGATE
+    fi
+
+    echo "Compute availability zones (after change)"
+    openstack availability zone list --compute
+    nova availability-zone-list
 
     echo "Volume services"
     openstack volume service list
+    echo "Volume availability zones"
+    openstack availability zone list --volume
 fi
 
 if [[ $CEPH -eq 1 ]]; then
@@ -107,12 +115,6 @@ fi
 if [[ $NOVA -eq 1 ]]; then
     if [[ $DEPS -eq 1 ]]; then
         echo "Checking the following dependencies..."
-        # if [[ $(getenforce) == "Enforcing" ]]; then
-        #     # workaround /usr/libexec/qemu-kvm: Permission denied
-        #     sudo setenforce 0
-        #     getenforce
-        # fi
-        # echo "- selinux permissive"
         IMAGE_ID=$(openstack image show cirros -f value -c id)
         if [[ -z $IMAGE_ID ]]; then
             echo "Unable to find cirros image; re-run with GLANCE=1"
