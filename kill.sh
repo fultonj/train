@@ -2,7 +2,13 @@
 
 source ~/stackrc
 
-CLOUD=overcloud
+if [[ -z $1 ]]; then
+    CLOUD=overcloud
+else
+    CLOUD=$1    
+fi
+echo "Deleting heat stack, deployment plan, and config-download for \"$CLOUD\""
+
 # delete heat stack
 openstack stack delete $CLOUD --wait --yes
 
