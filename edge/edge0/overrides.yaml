@@ -1,0 +1,15 @@
+---
+parameter_defaults:
+  NtpServer: pool.ntp.org
+  ControllerCount: 0
+  ComputeCount: 0
+  DistributedComputeHCICount: 1
+  DistributedComputeHCIFlavor: baremetal
+  DistributedComputeHCISchedulerHints:
+    'capabilities:node': 'ceph-%index%'
+  GlanceBackend: swift
+  GlanceCacheEnabled: true
+  #CinderRbdAvailabilityZone: edge0
+  CinderStorageAvailabilityZone: edge0
+  NovaComputeAvailabilityZone: edge0
+  NovaAZAttach: false

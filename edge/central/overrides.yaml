@@ -1,0 +1,14 @@
+---
+parameter_defaults:
+  NtpServer: pool.ntp.org
+  ControllerCount: 1
+  ComputeCount: 0
+  OvercloudControlFlavor: baremetal
+  OvercloudComputeFlavor: baremetal
+  ControllerSchedulerHints:
+    'capabilities:node': 'controller-%index%'
+  GlanceBackend: swift
+  ControllerExtraConfig:
+    oslo_messaging_notify_use_ssl: false
+    oslo_messaging_rpc_use_ssl: false
+    # cinder::backend_host: ''
