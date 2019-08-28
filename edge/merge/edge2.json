@@ -1,0 +1,326 @@
+{
+  "Undercloud": {
+    "hosts": [
+      "undercloud"
+    ], 
+    "vars": {
+      "username": "admin", 
+      "overcloud_keystone_url": "http://192.168.24.21:5000", 
+      "project_name": "admin", 
+      "overcloud_horizon_url": "http://192.168.24.21:80/dashboard", 
+      "auth_url": "https://192.168.24.2:13000", 
+      "ansible_connection": "local", 
+      "cacert": "/etc/pki/ca-trust/source/anchors/cm-local-ca.pem", 
+      "ansible_host": "localhost", 
+      "undercloud_swift_url": "https://192.168.24.2:13808/v1/AUTH_12a060d4d65f44759519a8b1fdd67977", 
+      "ansible_remote_tmp": "/tmp/ansible-${USER}", 
+      "undercloud_service_list": [
+        "tripleo_nova_compute", 
+        "tripleo_heat_engine", 
+        "tripleo_ironic_conductor", 
+        "tripleo_swift_container_server", 
+        "tripleo_swift_object_server", 
+        "tripleo_mistral_engine"
+      ], 
+      "ansible_python_interpreter": "/usr/bin/python", 
+      "os_auth_token": "gAAAAABdZvAp8Nl2L0drOxguxvkJVlqwvls6cmZ9ZdbWC_H-GFmG57lMzP449kxEl6N4rtHfnqzwY9AHGNhnE-n1SEtN26TKOZM-bhSzobB7qQLOOMxLZZUzaRywiEqrdNvlrmY8yS_FRcBbnwpe6oqE0NnTZ4_qhjrzEYLqeqQOioqe2XJMK04", 
+      "overcloud_admin_password": "7uCCDn4lIKQ4i7ONsPdgX1KbC", 
+      "plan": "edge2"
+    }
+  }, 
+  "DistributedComputeHCI": {
+    "hosts": [
+      "edge2-distributedcomputehci-0"
+    ], 
+    "vars": {
+      "tripleo_role_name": "DistributedComputeHCI", 
+      "serial": "1", 
+      "ansible_ssh_user": "heat-admin", 
+      "bootstrap_server_id": "6555a131-66bf-49cc-b424-f9086a9be814"
+    }
+  }, 
+  "overcloud": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "storage_mgmt_vip": "192.168.24.18", 
+      "container_cli": "podman", 
+      "ctlplane_vip": "192.168.24.18", 
+      "redis_vip": "192.168.24.9", 
+      "internal_api_vip": "192.168.24.18", 
+      "external_vip": "192.168.24.18", 
+      "storage_vip": "192.168.24.18"
+    }
+  }, 
+  "kernel": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "mgrs": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ceph_client": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ceph_osd": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_libvirt": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "timezone": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "iscsid": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_libvirt_guests": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "tripleo_firewall": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "snmp": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "osds": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "certmonger_user": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "cinder_volume": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "mysql_client": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_migration_target": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "podman": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "tripleo_packages": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_compute": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ceph_mon": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "logrotate_crond": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "sshd": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "clients": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ovn_metadata": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "tuned": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "chrony": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "boot_params_service": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "mons": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ca_certs": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ceph_mgr": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ovn_controller": {
+    "children": [
+      "DistributedComputeHCI"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "_meta": {
+    "hostvars": {
+      "edge2-distributedcomputehci-0": {
+        "tenant_hostname": "edge2-distributedcomputehci-0.tenant.localdomain", 
+        "internal_api_hostname": "edge2-distributedcomputehci-0.internalapi.localdomain", 
+        "storage_ip": "192.168.24.16", 
+        "storage_mgmt_ip": "192.168.24.16", 
+        "external_ip": "192.168.24.16", 
+        "ctlplane_ip": "192.168.24.16", 
+        "tenant_ip": "192.168.24.16", 
+        "internal_api_ip": "192.168.24.16", 
+        "management_ip": "192.168.24.16", 
+        "storage_hostname": "edge2-distributedcomputehci-0.storage.localdomain", 
+        "storage_mgmt_hostname": "edge2-distributedcomputehci-0.storagemgmt.localdomain", 
+        "deploy_server_id": "6555a131-66bf-49cc-b424-f9086a9be814", 
+        "ctlplane_hostname": "edge2-distributedcomputehci-0.ctlplane.localdomain", 
+        "enabled_networks": [
+          "management", 
+          "storage", 
+          "ctlplane", 
+          "external", 
+          "internal_api", 
+          "storage_mgmt", 
+          "tenant"
+        ], 
+        "canonical_hostname": "edge2-distributedcomputehci-0.localdomain", 
+        "ansible_host": "192.168.24.16"
+      }
+    }
+  }
+}

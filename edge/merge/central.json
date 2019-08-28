@@ -1,0 +1,471 @@
+{
+  "Undercloud": {
+    "hosts": [
+      "undercloud"
+    ], 
+    "vars": {
+      "username": "admin", 
+      "overcloud_keystone_url": "http://192.168.24.21:5000", 
+      "project_name": "admin", 
+      "overcloud_horizon_url": "http://192.168.24.21:80/dashboard", 
+      "auth_url": "https://192.168.24.2:13000", 
+      "ansible_connection": "local", 
+      "cacert": "/etc/pki/ca-trust/source/anchors/cm-local-ca.pem", 
+      "ansible_host": "localhost", 
+      "undercloud_swift_url": "https://192.168.24.2:13808/v1/AUTH_12a060d4d65f44759519a8b1fdd67977", 
+      "ansible_remote_tmp": "/tmp/ansible-${USER}", 
+      "undercloud_service_list": [
+        "tripleo_nova_compute", 
+        "tripleo_heat_engine", 
+        "tripleo_ironic_conductor", 
+        "tripleo_swift_container_server", 
+        "tripleo_swift_object_server", 
+        "tripleo_mistral_engine"
+      ], 
+      "ansible_python_interpreter": "/usr/bin/python", 
+      "os_auth_token": "gAAAAABdZqtGPwPq2ojhhzDxYBZi56BDaUxKHE42EnuMwiJ4KaiJkuKoAnugSoKgkxpjyTDPRIqHLtEiq8MicqjoAhBUoD3zS7wKNm5k7hEu-B4zApm95pGNIcOZB4kf5Zd8oBG7aV9kvEdvIGt1G9MDtYU0VOIlHP9JWWdPepl5dpKJpiX2NVk", 
+      "overcloud_admin_password": "7uCCDn4lIKQ4i7ONsPdgX1KbC", 
+      "plan": "central"
+    }
+  }, 
+  "Controller": {
+    "hosts": [
+      "central-controller-0"
+    ], 
+    "vars": {
+      "tripleo_role_name": "Controller", 
+      "serial": "1", 
+      "ansible_ssh_user": "heat-admin", 
+      "bootstrap_server_id": "738e4781-d7c4-46eb-8281-159c463889c2"
+    }
+  }, 
+  "overcloud": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "storage_mgmt_vip": "192.168.24.21", 
+      "container_cli": "podman", 
+      "ctlplane_vip": "192.168.24.21", 
+      "redis_vip": "192.168.24.11", 
+      "internal_api_vip": "192.168.24.21", 
+      "external_vip": "192.168.24.21", 
+      "storage_vip": "192.168.24.21"
+    }
+  }, 
+  "kernel": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_conductor": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "keepalived": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "mysql": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "cinder_api": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "swift_proxy": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "swift_ringbuilder": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "heat_api": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "container_image_prepare": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "timezone": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "iscsid": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "boot_params_service": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "heat_api_cloudwatch_disabled": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "tripleo_firewall": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "snmp": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "swift_storage": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "keystone_admin_api": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "redis": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "certmonger_user": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "mysql_client": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "glance_api": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "keystone": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "cinder_volume": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ovn_dbs": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "memcached": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "oslo_messaging_rpc": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_vnc_proxy": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "oslo_messaging_notify": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "keystone_public_api": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_api": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_metadata": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "heat_engine": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "podman": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "tripleo_packages": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "nova_scheduler": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "neutron_plugin_ml2_ovn": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "logrotate_crond": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "haproxy": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "sshd": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "placement": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "cinder_scheduler": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "tuned": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "chrony": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "horizon": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "neutron_api": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ca_certs": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "heat_api_cfn": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "ovn_controller": {
+    "children": [
+      "Controller"
+    ], 
+    "vars": {
+      "ansible_ssh_user": "heat-admin"
+    }
+  }, 
+  "_meta": {
+    "hostvars": {
+      "central-controller-0": {
+        "tenant_hostname": "central-controller-0.tenant.localdomain", 
+        "internal_api_hostname": "central-controller-0.internalapi.localdomain", 
+        "storage_ip": "192.168.24.12", 
+        "storage_mgmt_ip": "192.168.24.12", 
+        "external_ip": "192.168.24.12", 
+        "ctlplane_ip": "192.168.24.12", 
+        "tenant_ip": "192.168.24.12", 
+        "internal_api_ip": "192.168.24.12", 
+        "management_ip": "192.168.24.12", 
+        "storage_hostname": "central-controller-0.storage.localdomain", 
+        "storage_mgmt_hostname": "central-controller-0.storagemgmt.localdomain", 
+        "deploy_server_id": "738e4781-d7c4-46eb-8281-159c463889c2", 
+        "ctlplane_hostname": "central-controller-0.ctlplane.localdomain", 
+        "external_hostname": "central-controller-0.external.localdomain", 
+        "enabled_networks": [
+          "management", 
+          "storage", 
+          "ctlplane", 
+          "external", 
+          "internal_api", 
+          "storage_mgmt", 
+          "tenant"
+        ], 
+        "canonical_hostname": "central-controller-0.localdomain", 
+        "ansible_host": "192.168.24.12"
+      }
+    }
+  }
+}
