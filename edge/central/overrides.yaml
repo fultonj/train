@@ -6,7 +6,7 @@ parameter_defaults:
   OvercloudControlFlavor: baremetal
   OvercloudComputeFlavor: baremetal
   ControllerSchedulerHints:
-    'capabilities:node': 'controller-%index%'
+    'capabilities:node': '0-controller-%index%'
   GlanceBackend: swift
   ControllerExtraConfig:
     oslo_messaging_notify_use_ssl: false

@@ -6,7 +6,7 @@ parameter_defaults:
   DistributedComputeHCICount: 1
   DistributedComputeHCIFlavor: baremetal
   DistributedComputeHCISchedulerHints:
-    'capabilities:node': 'ceph-%index%'
+    'capabilities:node': '0-ceph-%index%'
   GlanceBackend: swift
   GlanceCacheEnabled: true
   #CinderRbdAvailabilityZone: edge0
