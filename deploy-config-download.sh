@@ -24,7 +24,7 @@ if [[ $HEAT -eq 1 ]]; then
          -e ~/containers-env-file.yaml \
          -e ~/overcloud-0-yml/container-cli.yaml \
          -e ~/domain.yaml \
-         -e ~/node-placement.yaml \
+         -e ~/overcloud-0-yml/placement.yaml \
          -e ~/train/overrides.yaml \
          --no-config-download \
          --libvirt-type qemu 2>&1 | tee -a ~/install-overcloud.log

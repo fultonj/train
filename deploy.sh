@@ -11,7 +11,7 @@ time openstack overcloud deploy \
   -e ~/templates/environments/ceph-ansible/ceph-ansible.yaml \
   -e ~/containers-env-file.yaml \
   -e ~/domain.yaml \
-  -e ~/node-placement.yaml \
+  -e ~/overcloud-0-yml/placement.yaml \
   -e ~/overcloud-0-yml/container-cli.yaml \
   -e ~/train/overrides.yaml \
   --libvirt-type qemu 2>&1 | tee -a ~/install-overcloud.log
