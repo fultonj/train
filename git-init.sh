@@ -2,7 +2,7 @@
 # Filename:                git-init.sh
 # Description:             configures my git env
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2019-08-09 10:40:18 fultonj> 
+# Time-stamp:              <2019-09-13 08:26:56 fultonj> 
 # -------------------------------------------------------
 # Clones the repos that I am interested in.
 # -------------------------------------------------------
@@ -52,8 +52,18 @@ if [ $? -gt 0 ]; then
     dir=/tmp/$(date | md5sum | awk {'print $1'})
     mkdir $dir
     pushd $dir
-    curl http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/g/git-review-1.24-5.el7.noarch.rpm > git-review-1.24-5.el7.noarch.rpm
-    sudo yum localinstall git-review-1.24-5.el7.noarch.rpm -y 
+    if [[ $(grep 7 /etc/redhat-release | wc -l) == 1 ]]; then
+        curl http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/g/git-review-1.24-5.el7.noarch.rpm > git-review-1.24-5.el7.noarch.rpm
+        sudo yum localinstall git-review-1.24-5.el7.noarch.rpm -y
+    fi
+    if [[ $(grep 8 /etc/redhat-release | wc -l) == 1 ]]; then
+        if [[ ! -e /usr/bin/python3 ]]; then
+            sudo dnf install python3 -y
+        fi
+        curl http://rpmfind.net/linux/fedora-secondary/releases/28/Everything/i386/os/Packages/g/git-review-1.25.0-9.fc28.noarch.rpm > git-review-1.25.0-9.fc28.noarch.rpm
+        sudo dnf install -y git-review-1.25.0-9.fc28.noarch.rpm
+        echo 8;
+    fi
     popd 
     rm -rf $dir
 fi 
@@ -112,7 +122,9 @@ if [[ $1 == 'tht' ]]; then
         popd
     fi
     popd
-    echo 'source /home/stack/stackrc' >> ~/.bashrc
+    if [[ -e /home/stack/stackrc ]]; then
+        echo 'source /home/stack/stackrc' >> ~/.bashrc
+    fi
     echo 'alias os=openstack' >> ~/.bashrc    
 fi
 # -------------------------------------------------------
