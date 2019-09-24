@@ -2,7 +2,7 @@
 # Filename:                git-init.sh
 # Description:             configures my git env
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2019-09-13 08:26:56 fultonj> 
+# Time-stamp:              <2019-09-24 16:47:06 fultonj> 
 # -------------------------------------------------------
 # Clones the repos that I am interested in.
 # -------------------------------------------------------
@@ -60,9 +60,8 @@ if [ $? -gt 0 ]; then
         if [[ ! -e /usr/bin/python3 ]]; then
             sudo dnf install python3 -y
         fi
-        curl http://rpmfind.net/linux/fedora-secondary/releases/28/Everything/i386/os/Packages/g/git-review-1.25.0-9.fc28.noarch.rpm > git-review-1.25.0-9.fc28.noarch.rpm
-        sudo dnf install -y git-review-1.25.0-9.fc28.noarch.rpm
-        echo 8;
+        curl http://people.redhat.com/~iwienand/1564233/git-review-1.26.0-1.fc28.noarch.rpm > git-review-1.26.0-1.fc28.noarch.rpm
+        sudo dnf install -y git-review-1.26.0-1.fc28.noarch.rpm
     fi
     popd 
     rm -rf $dir
